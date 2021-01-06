@@ -1,5 +1,23 @@
 # wildcard-cert-creation
 
+## Docker command
+<pre>
+docker run -it --rm --name certbot \
+    --env AWS_ACCESS_KEY_ID=<PUT_YOUR_OWN_ID> \
+    --env AWS_SECRET_ACCESS_KEY=<PUT_YOUR_OWN_KEY> \
+    --env AWS_SESSION_TOKEN=<PUT_YOUR_OWN_TOKEN> \
+    -v "<PUT_YOUR_LOCAL_DIR>/letsencrypt:/etc/letsencrypt" \
+    -v "<PUT_YOUR_LOCAL_DIR>/letsencrypt:/var/lib/letsencrypt" \
+    certbot/dns-route53 certonly \
+    -d my-subdomain.example.com \
+    -d '*.sys.my-subdomain.example.com' \
+    -d '*.login.sys.my-subdomain.example.com' \
+    -d '*.uaa.sys.my-subdomain.example.com' \
+    -d '*.apps.my-subdomain.example.com' \
+    -m <PUT_YOUR_EMAIL> \
+    --agree-tos --server https://acme-v02.api.letsencrypt.org/directory
+</pre>
+
 ## Install certbot
 <pre>
 wget https://dl.eff.org/certbot-auto
